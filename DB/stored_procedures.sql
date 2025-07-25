@@ -6,7 +6,7 @@
  * Created: 2025-07-25
  * 
  * Description: 
- *   Stored procedures for managing user favorite financial products.
+ *   Stored procedures for managing user's Like List of financial products.
  *   All database operations must use these procedures per E.SUN requirements.
  * 
  * Notes:
@@ -15,7 +15,7 @@
  */
 
 /*
- * Procedure: sp_add_favorite
+ * Procedure: sp_add_liked_product
  * Purpose: 新增喜好金融商品
  * Params:
  *   p_user_id: 使用者 ID
@@ -25,7 +25,7 @@
  * Returns: Success flag and message
  * Note: Rejects if (user_id, product_no, account) combination already exists.
  */
-CREATE OR REPLACE FUNCTION sp_add_favorite(
+CREATE OR REPLACE FUNCTION sp_add_liked_product(
     p_user_id VARCHAR(10),
     p_product_no VARCHAR(50),
     p_quantity INTEGER,
@@ -58,18 +58,18 @@ BEGIN
 
 EXCEPTION
     WHEN unique_violation THEN
-        RETURN QUERY SELECT FALSE, 'This product is already a favorite for the selected account.';
+        RETURN QUERY SELECT FALSE, 'This product is already liked for the selected account.';
 END;
 $$ LANGUAGE plpgsql;
 
 /*
- * Procedure: sp_get_favorites
+ * Procedure: sp_get_liked_products
  * Purpose: 查詢喜好金融商品清單
  * Parameters:
  *   p_user_id: 使用者 ID
  * Returns: 產品名稱清單、扣款帳號、預計扣款總金額、總手續費用、使用者電子信箱
  */
-CREATE OR REPLACE FUNCTION sp_get_favorites(p_user_id VARCHAR(10))
+CREATE OR REPLACE FUNCTION sp_get_liked_products(p_user_id VARCHAR(10))
 RETURNS TABLE(
     product_name VARCHAR(200),
     account VARCHAR(20),
@@ -95,7 +95,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 /*
- * Procedure: sp_delete_favorite
+ * Procedure: sp_delete_liked_product
  * Purpose: 刪除喜好金融商品資訊
  * Parameters:
  *   p_user_id: 使用者 ID
@@ -103,7 +103,7 @@ $$ LANGUAGE plpgsql;
  *   p_account: 扣款帳號
  * Returns: Success flag and message
  */
-CREATE OR REPLACE FUNCTION sp_delete_favorite(
+CREATE OR REPLACE FUNCTION sp_delete_liked_product(
     p_user_id VARCHAR(10),
     p_product_no VARCHAR(50),
     p_account VARCHAR(20)
@@ -123,7 +123,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 /*
- * Procedure: sp_update_favorite
+ * Procedure: sp_update_liked_product
  * Purpose: 更改喜好金融商品資訊
  * Parameters:
  *   p_user_id: 使用者 ID
@@ -133,7 +133,7 @@ $$ LANGUAGE plpgsql;
  *   p_quantity: 購買數量
  * Returns: Success flag and message
  */
-CREATE OR REPLACE FUNCTION sp_update_favorite(
+CREATE OR REPLACE FUNCTION sp_update_liked_product(
     p_user_id VARCHAR(10),
     p_product_no VARCHAR(50),
     p_old_account VARCHAR(20),
@@ -168,7 +168,7 @@ BEGIN
 
 EXCEPTION
     WHEN unique_violation THEN
-        RETURN QUERY SELECT FALSE, 'Favorite with this product and account already exists.';
+        RETURN QUERY SELECT FALSE, 'This product and account combination already exists in Like List.';
 
 END;
 $$ LANGUAGE plpgsql;
