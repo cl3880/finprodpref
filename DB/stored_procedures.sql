@@ -198,7 +198,7 @@ $$ LANGUAGE plpgsql;
 */
 CREATE OR REPLACE VIEW v_product_list AS
 SELECT 
-    no AS product_no,
+    no,
     product_name,
     price,
     fee_rate,
