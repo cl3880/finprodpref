@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: finprodpref-db
+    environment:
+      POSTGRES_DB: finprodpref
+      POSTGRES_USER: chris
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./DB:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
