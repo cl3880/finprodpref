@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "c61f2d9c-8e8d-4f8e-8a0a-3a5c2d3b1f1a",
+		"name": "FinProdPref API",
+		"description": "Postman collection for testing the Financial Product Preference System API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/A123456789/accounts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"A123456789",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Liked Products",
+			"item": [
+				{
+					"name": "Get Liked Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/liked-products/A123456789",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"liked-products",
+								"A123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Liked Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"A123456789\",\n    \"productNo\": \"2884\",\n    \"quantity\": 50,\n    \"newAccount\": \"1111888555\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/liked-products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"liked-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Liked Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"A123456789\",\n    \"productNo\": \"2884\",\n    \"oldAccount\": \"1111888555\",\n    \"newAccount\": \"1111999666\",\n    \"quantity\": 75\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/liked-products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"liked-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Liked Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/liked-products/A123456789/2884/1111999666",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"liked-products",
+								"A123456789",
+								"2884",
+								"1111999666"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+} 
