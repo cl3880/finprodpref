@@ -17,7 +17,7 @@ INSERT INTO user_accounts (user_id, account_no) VALUES
 ('C456789012', '3333444333');
 
 -- Insert products
-INSERT INTO products (no, product_name, price, fee_rate) VALUES
+INSERT INTO products (product_no, product_name, price, fee_rate) VALUES
 ('2884', '玉山金', 27.50, 0.001425),
 ('00929', '玉山永續高息ETF', 19.85, 0.001),
 ('2330', '台積電', 948.00, 0.001425),
