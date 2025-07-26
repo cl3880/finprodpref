@@ -98,3 +98,4 @@ finprodpref/
 - CORS configuration for frontend integration
 - Input validation with Bean Validation
 - Basic global exception handling
+- XSS prevented by escaping output on the backend as well as Vue's default data binding on frontend.

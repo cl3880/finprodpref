@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.Map;
 
@@ -23,6 +24,16 @@ public class GlobalExceptionHandler {
         if (ex.getCause() != null && ex.getCause().getMessage().contains("like_list_user_id_product_no_account_key")) {
             message = "Product is already in liked list for the selected account.";
         }
-        return new ResponseEntity<>(Map.of("error", message), HttpStatus.CONFLICT);
+        
+        // Escape HTML to prevent XSS
+        String escapedMessage = HtmlUtils.htmlEscape(message);
+        return new ResponseEntity<>(Map.of("error", escapedMessage), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+        // Escape HTML to prevent XSS
+        String escapedMessage = HtmlUtils.htmlEscape("An error occurred: " + ex.getMessage());
+        return new ResponseEntity<>(Map.of("error", escapedMessage), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 } 
