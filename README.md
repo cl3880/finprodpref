@@ -127,3 +127,15 @@ To accommodate global products a multi-currency conversion system would have to 
 ## Full API Reference
 
 See [API Documentation](backend/API.md) for detailed endpoints, request/response examples, and usage.
+
+## References
+
+- [BigDecimal vs. double in financial calculations](https://java-performance.info/bigdecimal-vs-double-in-financial-calculations/)
+- [Spring Data JPA Stored Procedures (Baeldung)](https://www.baeldung.com/spring-data-jpa-stored-procedures#query-annotation)
+- [Spring Guide: Relational Data Access](https://spring.io/guides/gs/relational-data-access)
+- [Spring JDBC Reference - Simple JDBC](https://docs.spring.io/spring-framework/reference/data-access/jdbc/simple.html)
+- [PostgreSQL: CREATE PROCEDURE Documentation](https://www.postgresql.org/docs/current/sql-createprocedure.html)
+- [iThome 教學：Spring Boot 實作 Stored Procedure](https://ithelp.ithome.com.tw/articles/10324750)
+- [JDBCTemplate 使用範例 (Medium)](https://medium.com/@simiao-it/jdbctemplate-%E7%AF%84%E4%BE%8B-2c9a1f3718ba)
+- [MDN: Vue.js - Getting Started](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Vue_getting_started)
+- [Vue 2 Example Projects](https://v2.vuejs.org/v2/examples/)
