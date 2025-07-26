@@ -23,6 +23,11 @@
     *   `201 Created`: Product successfully added to liked list.
     *   `400 Bad Request`: Invalid request body or validation errors.
     *   `409 Conflict`: Product already exists in liked list for the specified account.
+      ```json
+      {
+        "error": "This product and account combination already exists in Like List."
+      }
+      ```
 
 ### Get Liked Products for a User
 *   **Endpoint**: `GET /api/liked-products/{userId}`
@@ -61,7 +66,12 @@
     *   `204 No Content`: Update successful.
     *   `400 Bad Request`: Invalid request body or validation errors.
     *   `404 Not Found`: Product not found in user's liked list.
-    *   `409 Conflict`: New account/product combination already exists in liked list.
+    *   `409 Conflict`: The new product/account combination already exists in the liked list.
+      ```json
+      {
+        "error": "This product and account combination already exists in Like List."
+      }
+      ```
 
 ### Delete a Liked Product
 *   **Endpoint**: `DELETE /api/liked-products/{userId}/{productNo}/{account}`
@@ -126,14 +136,16 @@
 
 ### Global Exception Responses
 
-*   **409 Conflict**: When trying to add a product that already exists in the liked list
+*   **409 Conflict**: Returned when an operation would violate a unique constraint.
+    *   **On Add**: When trying to add a product that already exists in the liked list for a given account.
+    *   **On Update**: When changing an entry to a product/account combination that already exists.
     ```json
     {
-      "error": "Product is already in liked list for the selected account."
+      "error": "This product and account combination already exists in Like List."
     }
     ```
 
-*   **400 Bad Request**: For validation errors
+*   **400 Bad Request**: For general validation errors (e.g., missing fields, invalid values).
     ```json
     {
       "error": "Validation failed",

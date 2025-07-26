@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class Product {
     
     @NotBlank(message = "Product number is required")
-    private String no;
+    private String productNo;
     
     @NotBlank(message = "Product name is required")
     private String productName;
@@ -26,20 +26,20 @@ public class Product {
     
     public Product() {}
     
-    public Product(String no, String productName, BigDecimal price, BigDecimal feeRate) {
-        this.no = no;
+    public Product(String productNo, String productName, BigDecimal price, BigDecimal feeRate) {
+        this.productNo = productNo;
         this.productName = productName;
         this.price = price;
         this.feeRate = feeRate;
     }
     
     // Getters and Setters
-    public String getNo() {
-        return no;
+    public String getProductNo() {
+        return productNo;
     }
     
-    public void setNo(String no) {
-        this.no = no;
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
     }
     
     public String getProductName() {
@@ -76,7 +76,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "no='" + no + '\'' +
+                "productNo='" + productNo + '\'' +
                 ", productName='" + productName + '\'' +
                 ", price=" + price +
                 ", feeRate=" + feeRate +
