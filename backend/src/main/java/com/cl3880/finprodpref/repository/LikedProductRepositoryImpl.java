@@ -30,7 +30,7 @@ public class LikedProductRepositoryImpl implements LikedProductRepository {
         String message = (String) result.get("message");
         
         if (!Boolean.TRUE.equals(success)) {
-            if (message != null && (message.contains("already liked"))) {
+            if (message != null && (message.contains("already exists") || message.contains("already liked"))) {
                 throw new DataIntegrityViolationException("Product is already in liked list for the selected account.");
             }
             throw new RuntimeException(message != null ? message : "Failed to add liked product");

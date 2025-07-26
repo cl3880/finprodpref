@@ -20,7 +20,7 @@ This system implements CRUD operations for managing a user's liked list of finan
 
 ## Architecture
 
-- **Frontend**: Vue.js
+- **Frontend**: Vue.js with Vite
 - **Backend**: Spring Boot with RESTful API
 - **Database**: PostgreSQL with Stored Procedures
 - **Build Tool**: Maven
@@ -28,19 +28,56 @@ This system implements CRUD operations for managing a user's liked list of finan
 
 ## Quick Start
 
-### Prerequisites
-- Java 17+
-- Docker & Docker Compose
-- Node.js 18+ (for frontend)
-- Git
+### Option 1: Docker One Command
+
+**Prerequisites**: Docker & Docker Compose
+
+```bash
+# Clone and start everything
+git clone https://github.com/cl3880/finprodpref.git
+cd finprodpref
+docker compose up --build
+```
+
+**Access the application:**
+- **Frontend**: http://localhost:4173
+- **Backend API**: http://localhost:8080/api
+- **Database**: localhost:5432
+
+### Option 2: Manual Dev Setup
+
+**Prerequisites**: Java 17+, Node.js 18+, PostgreSQL
+
+```bash
+# 1. Start PostgreSQL database
+docker compose up postgres -d
+
+# 2. Start backend (separate terminal)
+cd backend
+mvn spring-boot:run
+
+# 3. Start frontend (separate terminal)
+cd frontend
+npm install
+npm run dev
+```
+
+**Access the application:**
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:8080/api
+- **Database**: localhost:5432
 
 ## API Testing
 
-1. Make sure [Postman](https://www.postman.com/downloads/) and Spring Boot app are installed and running.
+### Using Postman
 
-2. Import the `FinProdPref.postman_collection.json` file. The "FinProdPref API" collection will now appear in your Postman sidebar. The collection uses a variable `{{baseUrl}}` to define the server address, which default, it's set to `http://localhost:8080`.
+1. Install [Postman](https://www.postman.com/downloads/)
 
-3. Expand the "FinProdPref API" collection in the sidebar &rarr; Click on any request (e.g., "Get All Products") &rarr; Click the **Send** button
+2. Import `postman/FinProdPref.postman_collection.json` file
+
+3. The collection uses `{{baseUrl}}` variable set to `http://localhost:8080` (works for both Docker and manual setup)
+
+4. Test any endpoint by expanding the collection and clicking **Send**
 
 ### Available Endpoints
 - `GET /api/products` - Get all available products
@@ -50,13 +87,9 @@ This system implements CRUD operations for managing a user's liked list of finan
 - `PUT /api/liked-products` - Update liked product
 - `DELETE /api/liked-products/{userId}/{productNo}/{account}` - Delete liked product
 
-### Full API Reference
-See [API Documentation](backend/API.md) for detailed endpoints, request/response examples, and usage.
-
-
 ## Database
 
-The database automatically initializes with sample data when Docker starts:
+The database automatically initializes with sample data:
 - **Users**: Sample users with multiple accounts
 - **Products**: NTD-denominated financial products
 - **User Accounts**: Multiple accounts per user support
@@ -71,31 +104,26 @@ User specification 2 and 4 implies a user can have multiple accounts, and liked 
 
 ### `JdbcTemplate`
 
-JDBC Template was chosen over JPA/Hibernate due to “透過 Stored Procedure 存取資料庫” requirement and managing schema through DDL and DML scripts. Avoided JPA/Hibernate due to potential complexity and mapping issues.
+JDBC Template was chosen over JPA/Hibernate due to "透過 Stored Procedure 存取資料庫" requirement and managing schema through DDL and DML scripts. Avoided JPA/Hibernate due to potential complexity and mapping issues.
 
 ### Currency
 
 The project requirement specifies that the "Total Fee" should be priced in NTD ("台幣計價").
 
-To deliver a functional application within the project's scope and time limit, let all product prices stored in the database are assumed to be in New Taiwan Dollars (NTD).
+To deliver a functional application within the project's scope and time limit, all product prices stored in the database are assumed to be in New Taiwan Dollars (NTD).
 
-To accomadate global products a multi-currency conversion system would have to be implemented in the future.
+To accommodate global products a multi-currency conversion system would have to be implemented in the future.
 
-## Project Structure
 
-```
-finprodpref/
-├── backend/                # Spring Boot application
-├── frontend/               # Vue.js application
-├── DB/                     # DB scripts (DDL, DML, Stored Procedures)
-├── postman/                # API testing collection
-└── docker-compose.yml      
-```
 
 ## Security Features
 
 - Parameterized queries prevent SQL injection
 - CORS configuration for frontend integration
 - Input validation with Bean Validation
-- Basic global exception handling
-- XSS prevented by escaping output on the backend as well as Vue's default data binding on frontend.
+- Global exception handling with proper HTTP status codes
+- XSS prevention through output escaping and Vue's default data binding
+
+## Full API Reference
+
+See [API Documentation](backend/API.md) for detailed endpoints, request/response examples, and usage.
