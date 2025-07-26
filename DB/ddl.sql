@@ -12,7 +12,7 @@ CREATE TABLE user_accounts (
 );
 
 CREATE TABLE products (
-    no VARCHAR(50) PRIMARY KEY,
+    product_no VARCHAR(50) PRIMARY KEY,
     product_name VARCHAR(200) NOT NULL,
     price DECIMAL(10,2) NOT NULL CHECK (price > 0),
     fee_rate DECIMAL(5,4) NOT NULL CHECK (fee_rate >= 0 AND fee_rate <= 1)
@@ -27,6 +27,6 @@ CREATE TABLE like_list (
     total_fee DECIMAL(10,2),
     total_amount DECIMAL(10,2),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (product_no) REFERENCES products(no),
+    FOREIGN KEY (product_no) REFERENCES products(product_no),
     UNIQUE(user_id, product_no, account)
 );
